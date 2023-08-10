@@ -2,48 +2,14 @@
 
 int main(void)
 {
-    int n;
-    printf("Enter five positive integers : ");
-    scanf("%d", &n);
-
-    int largest = 0;
-
-    if (n > largest)
-    {
-        largest = n;
-    }
-
-    scanf("%d", &n);
-
-    if (n > largest)
-    {
-        largest = n;
-    }
-
-    scanf("%d", &n);
-
-    if (n > largest)
-    {
-        largest = n;
-    }
-
-    scanf("%d", &n);
-
-    if (n > largest)
-    {
-        largest = n;
-    }
-
-    scanf("%d", &n);
-
-    if (n > largest)
-    {
-        largest = n;
-    }
-
-    printf("%d is largest\n", largest);
+    printf("Name: Adity kumari\nRoll No: 10831122006\n");
 
     return 0;
 }
-/* Enter five positive integer 3 12 45 65 43
-65 is largest */
+
+/*
+
+Name: Adity Kumari
+Roll No: 10831122006
+
+*/
