@@ -6,21 +6,21 @@ int main(void)
     printf("Enter lower and upper limits: ");
     scanf("%d", &n);
     scanf("%d", &m);
-
-    int i = 1;
     
     while (n <= m)
     {
-        {
-            while (i < 10)
-            {
-                printf("%d x %d = %d\n", n, i, n * i);
-                ++i;
-            }
-        }
+        int i = 1;
+        printf("\n");
         
-    }
+        while (i < 10)
+        {
+            printf("%d x %d = %d\n", n, i, n * i);
+            ++i;
+        }
 
+        ++n;
+    }
+        
     return 0;
 }
 /*
