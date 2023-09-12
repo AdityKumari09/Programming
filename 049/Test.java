@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.lang.Math;
 
 class Test
 {
@@ -7,39 +8,43 @@ class Test
         Scanner sc = new Scanner(System.in);
 
         int n;
-        System.out.print("Enter a positive integer: ");
+        System.out.print("Enter a positive inetegr: ");
         n = sc.nextInt();
 
         if (n == 1)
         {
-            System.out.println("1 is neither prime nor composite");
+            System.out.println("1 is an armstrong number");
         }
 
         else
         {
-            int i = 2;
-            boolean n_is_prime = true;
+            int temp1 = n;
+            int temp2 = n;
+            int no_of_digits = 0;
 
-            //while (i <= (int) Math.sqrt((double) n))
-            while (i * i <= n)
+            while (n > 0)
             {
-                if (n % i == 0)
-                {
-                    n_is_prime = false;
-                    break;
-                }
-
-                ++i;
+                ++no_of_digits;
+                n = n / 10;
             }
 
-            if (n_is_prime == true)
+            int sum = 0;
+
+            while (temp1 > 0)
             {
-                System.out.println(n + " is prime");
+                int ld = temp1 % 10;
+                sum = sum + (int) Math.pow((double) ld, (double) no_of_digits);
+                temp1 = temp1 / 10;
+            }
+
+            if (sum == temp2)
+            {
+                System.out.println(temp2 + " is an armstrong number");
             }
 
             else
             {
-                System.out.println(n + " is composite");
+                System.out.println(temp2 + " is not an armstrong number");
             }
         }
     }
@@ -48,14 +53,14 @@ class Test
 
 1)
 Enter a positive integer: 1
-1 is neither prime nor composite
+1 is an armstrong number
 
 2)
 Enter a positive integer: 10
-10 is composite
+10 is not an armstrong number
 
 3)
-Enter a positive integer: 13
-13 is prime
+Enter a positive integer: 153
+153 is an armstrong number
 
 */

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 int main(void)
 {
@@ -8,51 +9,61 @@ int main(void)
 
     if (n == 1)
     {
-        printf("1 is neither prime nor composite\n");
+        printf("1 is an armstrong number\n");
     }
 
     else
     {
-        int i = 1;
-        int no_of_factors = 0;
+        int no_of_digits = 0;
+        int temp1 = n;
+        int temp2 = n;
 
-        while (i <= n)
+        /*
+        n = 0
+        nd = 3
+        */
+
+        while (n > 0)
         {
-            if (n % i == 0)
-            {
-                ++no_of_factors;
-            }
-
-            ++i;
+            ++no_of_digits;
+            n = n / 10;
         }
 
-        //printf("%d\n", no_of_factors);
-
-        if (no_of_factors == 2)
+        int sum = 0;
+    
+        while (temp1 > 0)
         {
-            printf("%d is prime\n", n);
+            int last_digit = temp1 % 10;
+            sum = sum + (int) pow((double) last_digit, (double) no_of_digits);
+            temp1 = temp1 / 10;
+        }
+
+        if (sum == temp2)
+        {
+            printf("%d is an armstrong number\n", temp2);
         }
 
         else
         {
-            printf("%d is composite\n", n);
+            printf("%d is not an armstrong number\n", temp2);
         }
-    }    
 
+    }
+    
     return 0;
 }
 /*
 
 1)
 Enter a positive integer: 1
-1 is neither prime nor composite
+1 is an armstrong number
 
 2)
 Enter a positive integer: 10
-10 is composite
+10 is not an armstrong number
 
 3)
-Enter a positive integer: 13
-13 is prime
+Enter a positive integer: 153
+153 is an armstrong number
 
 */

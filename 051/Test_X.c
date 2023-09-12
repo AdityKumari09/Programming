@@ -6,21 +6,32 @@ int main(void)
     printf("Enter the number of terms: ");
     scanf("%d", &n);
 
-    int a = 0;
-    int b = 1;
-    int sum = 0;
-    printf("%d", a);
-
-    while (n > 2)
+    if (n == 1)
     {
-        printf(", %d ", b);
-        sum = a + b;
-        a = b;
-        b = sum;
-        --n;
+        printf("0\n");
     }
 
-    printf("and %d\n", sum);
+    else
+    {
+        int a = 0;
+        int b = 1;
+        int sum = 0;
+
+        printf("%d", a);
+
+        while (n > 2)
+        {
+            printf(", %d", b);
+
+            sum = a + b;
+            a = b;
+            b = sum;
+
+            --n;
+        }
+
+        printf(" and %d\n", b);
+    }
 
     return 0;
 }
