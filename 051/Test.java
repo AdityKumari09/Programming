@@ -6,36 +6,20 @@ class Test
     {
         Scanner sc = new Scanner(System.in);
 
-        int n, m;
-        System.out.print("Enter lower and upper limits: ");
+        int n;
+        System.out.print("Enter the number of terms: ");
         n = sc.nextInt();
-        m = sc.nextInt();
 
-        System.out.print("Prime numbers - ");
+        int a = 0;
+        int b = 1;
 
-        while (n <= m)
+         while (n > 0)
         {
-            int i = 2;
-            boolean n_is_prime = true;
-
-            while (i * i <= n)
-            {
-                if (n % i == 0)
-                {
-                    n_is_prime = false;
-                    break;
-                }
-
-                ++i;
-            }
-
-            //if (n_is_prime == true)
-            if (n_is_prime)
-            {
-                System.out.print(n + " ");
-            }
-
-            ++n;
+            System.out.print(a + " ");
+            int sum = a + b;
+            a = b;
+            b = sum;
+            --n;
         }
 
         System.out.println();
@@ -43,7 +27,20 @@ class Test
 }
 /*
 
-Enter lower and upper limits: 5 20
-Prime numbers - 7 11 13 17 19
+1)
+Enter the number of terms: 1
+0
+
+2)
+Enter the number of terms: 2
+0 1
+
+3)
+Enter the number of terms: 3
+0 1 1
+
+4)
+Enter the number of terms: 6
+0 1 1 2 3 5
 
 */
