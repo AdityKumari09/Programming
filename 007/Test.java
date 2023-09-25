@@ -27,11 +27,6 @@ class Test
         if (l == 1)
         {
             System.out.println(n + " + " + m + " = " + (n + m));
-            System.out.print(n);
-            System.out.print(" + ");
-            System.out.print(m);
-            System.out.print(" = ");
-            System.out.println(n + m);
         }
 
         else if (l == 2)
