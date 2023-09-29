@@ -16,7 +16,7 @@ int main(void)
         while (i % n != 0)
         {
             i = m * multiplier;
-            multiplier++;
+            ++multiplier;
         }
 
         printf("LCM = %d\n", i);
@@ -29,7 +29,7 @@ int main(void)
         while (i % m != 0)
         {
             i = n * multiplier;
-            multiplier++;
+            ++multiplier;
         }
 
         printf("LCM = %d\n", i);

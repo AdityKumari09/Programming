@@ -18,7 +18,7 @@ int main(void)
             --n;
         }
 
-        printf("%d = %d\n", n, p);
+        //printf("%d = %d\n", n, p);
     }
 
     else

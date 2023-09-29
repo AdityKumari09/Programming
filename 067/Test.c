@@ -1,6 +1,7 @@
 // #include <stdio.h>
 
 // void print_sum(int, int); // function prototype, aka function declaration
+//in fun protopye we get parameter data type + return data type = type signature
 
 // int main(void)
 // {
