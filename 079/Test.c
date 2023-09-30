@@ -23,3 +23,5 @@ void calculate_area_and_perimeter(double* ptr_area, double* ptr_perimeter,
     *ptr_area = l * b;
     *ptr_perimeter = 2 * (l + b);
 }
+
+//area perimtere
