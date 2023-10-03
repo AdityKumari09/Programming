@@ -14,6 +14,8 @@ int main(void)
 
     while (i <= n)
     {
+        // The ordering of the conditions is important due to short-circuit
+        // evaluation
         if ((n % i == 0) && (is_prime(i)))
         {
             printf("%d ", i);

@@ -15,6 +15,8 @@ int main(void)
 
     while (i <= m)
     {
+        // This is done to avoid the same function being called multiple times
+        // unnecessarily
         bool i_is_prime = is_prime(i);
         bool i_is_armstrong = is_armstrong(i);
 

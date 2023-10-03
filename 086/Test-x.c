@@ -34,6 +34,33 @@ int main(void)
 
     return 0;
 }
+
+// #include <stdio.h>
+
+// int main(void)
+// {
+//     int x;
+//     printf("Enter a non-negative integer: ");
+//     scanf("%d", &x);
+
+//     int number_of_occurrences[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+//     while (x > 0)
+//     {
+//         ++(*(number_of_occurrences + (x % 10)));
+//         x = x / 10;
+//     }
+
+//     for (int i = 0; i < 10; ++i)
+//     {
+//         printf("| %d | %d |\n", i, *(number_of_occurrences + i));
+//     }
+
+//     return 0;
+// }
+
+
+
 // #include <stdio.h>
 
 // int main(void)
