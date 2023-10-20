@@ -82,8 +82,8 @@ int main(void)
     scanf("%lf", &(ptr2 ->marks3));
 
 
-    int sum1 = (ptr1->roll_number) + (ptr1->marks1) + (ptr1->marks2) + (ptr1->marks3); 
-    int sum2 = (ptr2->roll_number) + (ptr2->marks1) + (ptr2->marks2) + (ptr2->marks3); 
+    int sum1 = (ptr1->marks1) + (ptr1->marks2) + (ptr1->marks3); 
+    int sum2 = (ptr2->marks1) + (ptr2->marks2) + (ptr2->marks3); 
 
     if (sum1 > sum2)
     {

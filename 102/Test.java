@@ -45,8 +45,8 @@ class Test
         System.out.print("Marks3: ");
         ref2.marks2 = sc.nextDouble();
 
-        double sum1 = (ref1.roll_number) + (ref1.marks1) + (ref1.marks2) + (ref1.marks3);
-        double sum2 = (ref2.roll_number) + (ref2.marks1) + (ref2.marks2) + (ref2.marks3);
+        double sum1 = (ref1.marks1) + (ref1.marks2) + (ref1.marks3);
+        double sum2 = (ref2.marks1) + (ref2.marks2) + (ref2.marks3);
 
         if (sum1 > sum2)
         {

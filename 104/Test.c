@@ -32,18 +32,24 @@ int main(void)
 
     }
 
+    double max_sum = 0.0;
+    int topper = 0;
+
     for (int i = 0; i < 5; ++i)
     {
-        printf("\nRoll Number: %d\n", ((s[i].roll_number)));
-        printf("Marks1: %0.1lf\n", ((s[i].marks1)));
-        printf("Marks1: %0.1lf\n", ((s[i].marks2)));
-        printf("Marks1: %0.1lf\n", ((s[i].marks3)));
+        int sum = (s[i].marks1) + (s[i].marks2) + (s[i].marks3);
 
+        if (sum > max_sum)
+        {
+            max_sum = sum;
+            topper = i;
+        }
     }
+
+    printf("\nStudent %d has got highest marks ", topper + 1);
 
     return 0;
 }
-
 
 // #include <stdio.h>
 
@@ -63,33 +69,39 @@ int main(void)
 
 //     for (int i = 0; i < 5; ++i)
 //     {
-        // printf("\nEnter the detail of student %d\n", i + 1);
+//         printf("\nEnter the detail of student %d\n", i + 1);
 
-        // printf("Roll Number: ");
-        // scanf("%d", &((*(s + i)).roll_number));
+//         printf("Roll Number: ");
+//         scanf("%d", &((*(s + i)).roll_number));
 
-        // printf("Marks1: ");
-        // scanf("%lf", &((*(s + i)).marks1));
+//         printf("Marks1: ");
+//         scanf("%lf", &((*(s + i)).marks1));
 
-        // printf("Marks2: ");
-        // scanf("%lf", &((*(s + i)).marks2));
+//         printf("Marks2: ");
+//         scanf("%lf", &((*(s + i)).marks2));
 
-        // printf("Marks3: ");
-        // scanf("%lf", &((*(s + i)).marks3));
+//         printf("Marks3: ");
+//         scanf("%lf", &((*(s + i)).marks3));
 
 //     }
+
+    
+//     double max_sum = 0.0;
+//     int topper;
 
 //     for (int i = 0; i < 5; ++i)
 //     {
-        // printf("\nRoll Number: %d\n", (*(s + i)).roll_number);
-        // printf("Marks1: %g\n", (*(s + i)).marks1);
-        // printf("Marks1: %g\n", (*(s + i)).marks2);
-        // printf("Marks1: %g\n", (*(s + i)).marks3);
+//         int sum = ((*(s + i)).marks1) + ((*(s + i)).marks2) + ((*(s + i)).marks3);
 
+//         if (sum > max_sum)
+//         {
+//             max_sum = sum;
+//             topper = i;
+//         }
 //     }
-    
+
+//     printf("\nStudent %d has got highest marks ", topper + 1);
+
 //     return 0;
 // }
 
-// (*(s + i)).roll_number
-// &((*(s + i)).roll_number)
