@@ -113,6 +113,31 @@ class Test
         System.out.println(arr.lastIndexOf(50));
 
         System.out.println("-------------------------------------------------");
+
+        arr.remove(3);
+
+        for (int i = 0; i < arr.size(); ++i)
+        {
+            System.out.print(arr.get(i) + " ");
+        }
+
+        System.out.println();
+
+        System.out.println("-------------------------------------------------");
+
+        // No built-in method for removeRange in Java
+
+        Integer[] array = arr.toArray(new Integer[arr.size()]);
+
+        for (int i = 0; i < array.length; ++i)
+        {
+            System.out.print(array[i] + " ");
+        }
+
+        System.out.println();
+
+        System.out.println("-------------------------------------------------");
     }
 }
+
 
