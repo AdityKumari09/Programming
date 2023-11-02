@@ -175,7 +175,7 @@ void create_empty_Array_List_int(Array_List_int* ptr)
 {
     ptr->arr = malloc(sizeof (int));
 
-    if ((void*) ptr->arr == NULL)
+    if (ptr->arr == NULL)
     {
         printf("\n-------------------------------------");
         printf("\ncreate_empty_Array_List_int()");
@@ -194,7 +194,7 @@ void create_empty_Array_List_int_with_initial_capacity(Array_List_int* ptr,
 {
     ptr->arr = malloc(initial_capacity * sizeof (int));
 
-    if ((void*) ptr->arr == NULL)
+    if (ptr->arr == NULL)
     {
         printf("\n---------------------------------------------------");
         printf("\ncreate_empty_Array_List_int_with_initial_capacity()");
@@ -285,9 +285,9 @@ void Array_List_int_add_at_index(Array_List_int* ptr, int i, int n)
     if (ptr->size == ptr->capacity)
     {
         ptr->capacity = ptr->capacity * 2;
-        ptr->arr = (int*) realloc(ptr->arr, ptr->capacity * sizeof (int));
+        ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (int));
 
-        if ((void*) ptr->arr == NULL)
+        if (ptr->arr == NULL)
         {
             printf("\n-------------------------------------");
             printf("\nArray_List_int_add_at_index()");
@@ -309,9 +309,9 @@ void Array_List_int_add_at_index(Array_List_int* ptr, int i, int n)
 
 void Array_List_int_clear(Array_List_int* ptr)
 {
-    ptr->arr = (int*) realloc(ptr->arr, sizeof (int));
+    ptr->arr = realloc(ptr->arr, sizeof (int));
 
-    if ((void*) ptr->arr == NULL)
+    if (ptr->arr == NULL)
     {
         printf("\n-------------------------------------");
         printf("\nArray_List_int_clear()");
