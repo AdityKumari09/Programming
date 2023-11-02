@@ -152,7 +152,8 @@ int main(void)
 
     printf("---------------------------------------------------------------\n");
 
-    free((void*) array);
+    free((void*) array);//we are using void after free bcz free accept void argument
+    
 
     return 0;
 }

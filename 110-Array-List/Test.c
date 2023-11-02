@@ -164,7 +164,7 @@ int main(void)
 
     printf("---------------------------------------------------------------\n");
 
-    free((void*) array);
+    free(array);
 
     destroy_Array_List_int(&a1);
 
@@ -173,7 +173,7 @@ int main(void)
 
 void create_empty_Array_List_int(Array_List_int* ptr)
 {
-    ptr->arr = (int*) malloc(sizeof (int));
+    ptr->arr = malloc(sizeof (int));
 
     if ((void*) ptr->arr == NULL)
     {
@@ -192,7 +192,7 @@ void create_empty_Array_List_int(Array_List_int* ptr)
 void create_empty_Array_List_int_with_initial_capacity(Array_List_int* ptr,
                                                        int initial_capacity)
 {
-    ptr->arr = (int*) malloc(initial_capacity * sizeof (int));
+    ptr->arr = malloc(initial_capacity * sizeof (int));
 
     if ((void*) ptr->arr == NULL)
     {
@@ -218,9 +218,9 @@ void Array_List_int_add(Array_List_int* ptr, int n)
     if (ptr->size == ptr->capacity)
     {
         ptr->capacity = ptr->capacity * 2;
-        ptr->arr = (int*) realloc(ptr->arr, ptr->capacity * sizeof (int));
+        ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (int));
 
-        if ((void*) ptr->arr == NULL)
+        if (ptr->arr == NULL)
         {
             printf("\n-------------------------------------");
             printf("\nArray_List_int_add()");
@@ -385,10 +385,10 @@ void Array_List_int_remove(Array_List_int* ptr, int i)
 
     if (ptr->size < ptr->capacity / 2)
     {
-        ptr->capacity = ptr->size + 1;
+        ptr->capacity = (ptr->size == 0) ? 1 : ptr->size;
         ptr->arr = (int*) realloc(ptr->arr, ptr->capacity * sizeof (int));
 
-        if ((void*) ptr->arr == NULL)
+        if (ptr->arr == NULL)
         {
             printf("\n-------------------------------------");
             printf("\nArray_List_int_remove()");
@@ -423,10 +423,10 @@ void Array_List_int_remove_range(Array_List_int* ptr, int i, int j)
 
     if (ptr->size < ptr->capacity / 2)
     {
-        ptr->capacity = ptr->size + 1;
-        ptr->arr = (int*) realloc(ptr->arr, ptr->capacity * sizeof (int));
+        ptr->capacity = (ptr->size == 0) ? 1 : ptr->size;
+        ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (int));
 
-        if ((void*) ptr->arr == NULL)
+        if (ptr->arr == NULL)
         {
             printf("\n-------------------------------------");
             printf("\nArray_List_int_remove_range()");
@@ -440,7 +440,7 @@ void Array_List_int_remove_range(Array_List_int* ptr, int i, int j)
 
 int* Array_List_int_to_array(Array_List_int* ptr)
 {
-    int* array = (int*) malloc(ptr->size * sizeof (int));
+    int* array = malloc(ptr->size * sizeof (int));
 
     for (int i = 0; i < ptr->size; ++i)
     {
@@ -452,5 +452,5 @@ int* Array_List_int_to_array(Array_List_int* ptr)
 
 void destroy_Array_List_int(Array_List_int* ptr)
 {
-    free((void*) ptr->arr);
+    free(ptr->arr);
 }

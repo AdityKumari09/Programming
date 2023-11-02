@@ -26,10 +26,43 @@ class Array_List_int
         return size == 0;
     }
 
-    Array_List_int_add(int n)
+    void add(int n)
     {
         arr[size] = n;
         ++size;
+    }
+
+    int get(int i)
+    {
+        if ((i < 0) || (i >= size))
+            throw new IndexOutOfBoundException();
+
+        return arr[i];    
+    }
+
+    int size()
+    {
+        return size;
+    }
+
+    void set(int i, int n)
+    {
+        if ((i < 0) || (i >= size))
+            throw new IndexOutOfBoundException();
+
+        arr[i] = n;    
+    }
+
+    void add(int i, int n)
+    {
+        if ((i < 0) || (i > size))
+            throw new IndexOutOfBoundException();
+
+        if (size == capacity)
+        {
+            capacity = capacity * 2;
+            
+        }    
     }
 }
 
