@@ -386,7 +386,7 @@ void Array_List_int_remove(Array_List_int* ptr, int i)
     if (ptr->size < ptr->capacity / 2)
     {
         ptr->capacity = (ptr->size == 0) ? 1 : ptr->size;
-        ptr->arr = (int*) realloc(ptr->arr, ptr->capacity * sizeof (int));
+        ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (int));
 
         if (ptr->arr == NULL)
         {
