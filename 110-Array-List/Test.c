@@ -2,183 +2,131 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-struct array_list_int
+struct string
 {
-    int* arr;
+    char* arr;
     int size;
     int capacity;
 };
 
-typedef struct array_list_int Array_List_int;
+typedef struct string String;
 
-void create_empty_Array_List_int(Array_List_int*);
-void create_empty_Array_List_int_with_initial_capacity(Array_List_int*, int);
-bool Array_List_int_is_empty(Array_List_int*);
-void Array_List_int_add(Array_List_int*, int);
-int Array_List_int_get(Array_List_int*, int);
-int Array_List_int_size(Array_List_int*);
-void Array_List_int_set(Array_List_int*, int, int);
-void Array_List_int_add_at_index(Array_List_int*, int, int);
-void Array_List_int_clear(Array_List_int*);
-bool Array_List_int_contains(Array_List_int*, int);
-int Array_List_int_index_of(Array_List_int*, int);
-int Array_List_int_last_index_of(Array_List_int*, int);
-void Array_List_int_remove(Array_List_int*, int);
-void Array_List_int_remove_range(Array_List_int*, int, int);
-int* Array_List_int_to_array(Array_List_int*);
-void destroy_Array_List_int(Array_List_int*);
+void String_create_empty(String*);
+void String_assign_using_null_terminated_array_of_char(String*, const char*);
+void String_print(String*);
+void String_assign_using_String(String*, String*);
+void String_add_using_char(String*, char);
+void String_add_at_index_using_char(String*, int, char);
+void String_add_using_String(String*, String*);
+void String_clear(String*);
+void String_assign_using_user_input(String*);
+bool String_is_empty(String*);
+int String_size(String*);
+char String_char_at(String*, int);
+void String_set_char_at(String*, int, char);
+bool String_contains_char(String*, char);
+bool String_contains_String(String*, String*);
+int String_index_of_char(String*, char);
+int String_index_of_String(String*, String*);
+int String_last_index_of_char(String*, char);
+int String_last_index_of_String(String*, String*);
+int String_next_index_of_char(String*, char, int);
+int String_next_index_of_String(String*, String*, int);
+void String_destroy(String*);
 
 int main(void)
 {
-    Array_List_int a1;
-    create_empty_Array_List_int(&a1);
+    printf("---------------------------------------------------------------\n");
+
+    String s1;
+    String_create_empty(&s1);
+
+    String_assign_using_null_terminated_array_of_char(&s1, "hello");
+
+    String_print(&s1);
+    putchar('\n');
 
     printf("---------------------------------------------------------------\n");
 
-    printf(Array_List_int_is_empty(&a1) ? "true\n" : "false\n");
+    String s2;
+    String_create_empty(&s2);
+
+    String_assign_using_String(&s2, &s1);
+    String_add_using_char(&s2, '!');
+
+    String_print(&s2);
+    putchar('\n');
 
     printf("---------------------------------------------------------------\n");
 
-    Array_List_int_add(&a1, 10);
-    Array_List_int_add(&a1, 20);
-    Array_List_int_add(&a1, 30);
+    String_add_at_index_using_char(&s2, 5, ' ');
 
-    printf("%d\n", Array_List_int_get(&a1, 1));
-
-    printf("---------------------------------------------------------------\n");
-
-    printf(Array_List_int_is_empty(&a1) ? "true\n" : "false\n");
-
-    printf("%d\n", Array_List_int_size(&a1));
+    String_print(&s2);
+    putchar('\n');
 
     printf("---------------------------------------------------------------\n");
 
-    for (int i = 0; i < Array_List_int_size(&a1); ++i)
+    String_add_using_String(&s2, &s1);
+
+    String_print(&s2);
+    putchar('\n');
+
+    printf("---------------------------------------------------------------\n");
+
+    printf("Enter a string: ");
+    String_assign_using_user_input(&s2);
+
+    printf("Your string: ");
+    String_print(&s2);
+    putchar('\n');
+
+    printf("---------------------------------------------------------------\n");
+
+    printf("Enter the destination string: ");
+    String_assign_using_user_input(&s1);
+
+    printf("Enter the source string: ");
+    String_assign_using_user_input(&s2);
+
+    // printf(String_contains_String(&s1, &s2) ? "true\n" : "false\n");
+
+    // printf("%d\n", String_index_of_String(&s1, &s2));
+
+    // printf("%d\n", String_last_index_of_String(&s1, &s2));
+
+    int index = 0;
+
+    while (true)
     {
-        printf("%d ", Array_List_int_get(&a1, i));
+        index = String_next_index_of_String(&s1, &s2, index);
+
+        if (index == - 1)
+        {
+            break;
+        }
+
+        printf("%d ", index);
+        ++index;
     }
 
-    printf("\n");
+    putchar('\n');
 
     printf("---------------------------------------------------------------\n");
 
-    Array_List_int_set(&a1, 2, 40);
-
-    for (int i = 0; i < Array_List_int_size(&a1); ++i)
-    {
-        printf("%d ", Array_List_int_get(&a1, i));
-    }
-
-    printf("\n");
-
-    printf("---------------------------------------------------------------\n");
-
-    Array_List_int_add_at_index(&a1, 1, 50);
-
-    for (int i = 0; i < Array_List_int_size(&a1); ++i)
-    {
-        printf("%d ", Array_List_int_get(&a1, i));
-    }
-
-    printf("\n");
-
-    printf("---------------------------------------------------------------\n");
-
-    Array_List_int_clear(&a1);
-
-    printf("%d\n", Array_List_int_size(&a1));
-
-    printf("---------------------------------------------------------------\n");
-
-    Array_List_int_add(&a1, 10);
-    Array_List_int_add(&a1, 20);
-    Array_List_int_add(&a1, 30);
-    Array_List_int_add(&a1, 40);
-    Array_List_int_add(&a1, 10);
-    Array_List_int_add(&a1, 20);
-
-    for (int i = 0; i < Array_List_int_size(&a1); ++i)
-    {
-        printf("%d ", Array_List_int_get(&a1, i));
-    }
-
-    printf("\n");
-
-    printf(Array_List_int_contains(&a1, 30) ? "true\n" : "false\n");
-
-    printf(Array_List_int_contains(&a1, 50) ? "true\n" : "false\n");
-
-    printf("---------------------------------------------------------------\n");
-
-    for (int i = 0; i < Array_List_int_size(&a1); ++i)
-    {
-        printf("%d ", Array_List_int_get(&a1, i));
-    }
-
-    printf("\n");
-
-    printf("%d\n", Array_List_int_index_of(&a1, 10));
-
-    printf("%d\n", Array_List_int_index_of(&a1, 30));
-
-    printf("%d\n", Array_List_int_index_of(&a1, 50));
-
-    printf("---------------------------------------------------------------\n");
-
-    for (int i = 0; i < Array_List_int_size(&a1); ++i)
-    {
-        printf("%d ", Array_List_int_get(&a1, i));
-    }
-
-    printf("\n");
-
-    printf("%d\n", Array_List_int_last_index_of(&a1, 10));
-
-    printf("%d\n", Array_List_int_last_index_of(&a1, 30));
-
-    printf("%d\n", Array_List_int_last_index_of(&a1, 50));
-
-    printf("---------------------------------------------------------------\n");
-
-    Array_List_int_remove(&a1, 3);
-
-    for (int i = 0; i < Array_List_int_size(&a1); ++i)
-    {
-        printf("%d ", Array_List_int_get(&a1, i));
-    }
-
-    printf("\n");
-
-    printf("---------------------------------------------------------------\n");
-
-    Array_List_int_remove_range(&a1, 1, 2);
-
-    int* array = Array_List_int_to_array(&a1);
-
-    for (int i = 0; i < Array_List_int_size(&a1); ++i)
-    {
-        printf("%d ", array[i]);
-    }
-
-    printf("\n");
-
-    printf("---------------------------------------------------------------\n");
-
-    free(array);
-
-    destroy_Array_List_int(&a1);
+    String_destroy(&s1);
+    String_destroy(&s2);
 
     return 0;
 }
 
-void create_empty_Array_List_int(Array_List_int* ptr)
+void String_create_empty(String* ptr)
 {
-    ptr->arr = malloc(sizeof (int));
+    ptr->arr = malloc(sizeof (char));
 
     if (ptr->arr == NULL)
     {
         printf("\n-------------------------------------");
-        printf("\ncreate_empty_Array_List_int()");
+        printf("\nString_create_empty()");
         printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
         printf("\n-------------------------------------\n");
 
@@ -189,41 +137,79 @@ void create_empty_Array_List_int(Array_List_int* ptr)
     ptr->capacity = 1;
 }
 
-void create_empty_Array_List_int_with_initial_capacity(Array_List_int* ptr,
-                                                       int initial_capacity)
+void String_assign_using_null_terminated_array_of_char(String* ptr_dst,
+                                                       const char* s)
 {
-    ptr->arr = malloc(initial_capacity * sizeof (int));
+    int length = 0;
 
-    if (ptr->arr == NULL)
+    while (s[length] != '\0')
+    {
+        ++length;
+    }
+
+    ptr_dst->size = length;
+
+    ptr_dst->capacity = (length == 0) ? 1 : length;
+    ptr_dst->arr = realloc(ptr_dst->arr, ptr_dst->capacity * sizeof (char));
+
+    if (ptr_dst->arr == NULL)
     {
         printf("\n---------------------------------------------------");
-        printf("\ncreate_empty_Array_List_int_with_initial_capacity()");
+        printf("\nString_assign_using_null_terminated_array_of_char()");
         printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
         printf("\n---------------------------------------------------\n");
 
         exit(EXIT_FAILURE);
     }
 
-    ptr->size = 0;
-    ptr->capacity = initial_capacity;
+    for (int i = 0; i < length; ++i)
+    {
+        (ptr_dst->arr)[i] = s[i];
+    }
 }
 
-bool Array_List_int_is_empty(Array_List_int* ptr)
+void String_print(String* ptr)
 {
-    return ptr->size == 0;
+    for (int i = 0; i < ptr->size; ++i)
+    {
+        putchar((ptr->arr)[i]);
+    }
 }
 
-void Array_List_int_add(Array_List_int* ptr, int n)
+void String_assign_using_String(String* ptr_dst, String* ptr_src)
+{
+    ptr_dst->size = ptr_src->size;
+
+    ptr_dst->capacity = (ptr_dst->size == 0) ? 1 : ptr_dst->size;
+    ptr_dst->arr = realloc(ptr_dst->arr, ptr_dst->capacity * sizeof (char));
+
+    if (ptr_dst->arr == NULL)
+    {
+        printf("\n-------------------------------------");
+        printf("\nString_assign_using_String()");
+        printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
+        printf("\n-------------------------------------\n");
+
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < ptr_dst->size; ++i)
+    {
+        (ptr_dst->arr)[i] = (ptr_src->arr)[i];
+    }
+}
+
+void String_add_using_char(String* ptr, char c)
 {
     if (ptr->size == ptr->capacity)
     {
         ptr->capacity = ptr->capacity * 2;
-        ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (int));
+        ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (char));
 
         if (ptr->arr == NULL)
         {
             printf("\n-------------------------------------");
-            printf("\nArray_List_int_add()");
+            printf("\nString_add_using_char()");
             printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
             printf("\n-------------------------------------\n");
 
@@ -231,51 +217,16 @@ void Array_List_int_add(Array_List_int* ptr, int n)
         }
     }
 
-    (ptr->arr)[ptr->size] = n;
+    (ptr->arr)[ptr->size] = c;
     ++(ptr->size);
 }
 
-int Array_List_int_get(Array_List_int* ptr, int i)
-{
-    if ((i < 0) || (i >= ptr->size))
-    {
-        printf("\n-------------------------------------------");
-        printf("\nArray_List_int_get()");
-        printf("\nINDEX OUT OF BOUNDS, EXITING DUE TO FAILURE");
-        printf("\n-------------------------------------------\n");
-
-        exit(EXIT_FAILURE);
-    }
-
-    return (ptr->arr)[i];
-}
-
-int Array_List_int_size(Array_List_int* ptr)
-{
-    return ptr->size;
-}
-
-void Array_List_int_set(Array_List_int* ptr, int i, int n)
-{
-    if ((i < 0) || (i >= ptr->size))
-    {
-        printf("\n-------------------------------------------");
-        printf("\nArray_List_int_set()");
-        printf("\nINDEX OUT OF BOUNDS, EXITING DUE TO FAILURE");
-        printf("\n-------------------------------------------\n");
-
-        exit(EXIT_FAILURE);
-    }
-
-    (ptr->arr)[i] = n;
-}
-
-void Array_List_int_add_at_index(Array_List_int* ptr, int i, int n)
+void String_add_at_index_using_char(String* ptr, int i, char c)
 {
     if ((i < 0) || (i > ptr->size))
     {
         printf("\n-------------------------------------------");
-        printf("\nArray_List_int_add_at_index()");
+        printf("\nString_add_at_index_using_char()");
         printf("\nINDEX OUT OF BOUNDS, EXITING DUE TO FAILURE");
         printf("\n-------------------------------------------\n");
 
@@ -285,12 +236,12 @@ void Array_List_int_add_at_index(Array_List_int* ptr, int i, int n)
     if (ptr->size == ptr->capacity)
     {
         ptr->capacity = ptr->capacity * 2;
-        ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (int));
+        ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (char));
 
         if (ptr->arr == NULL)
         {
             printf("\n-------------------------------------");
-            printf("\nArray_List_int_add_at_index()");
+            printf("\nString_add_at_index_using_char()");
             printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
             printf("\n-------------------------------------\n");
 
@@ -303,18 +254,44 @@ void Array_List_int_add_at_index(Array_List_int* ptr, int i, int n)
         (ptr->arr)[j + 1] = (ptr->arr)[j];
     }
 
-    (ptr->arr)[i] = n;
+    (ptr->arr)[i] = c;
     ++(ptr->size);
 }
 
-void Array_List_int_clear(Array_List_int* ptr)
+void String_add_using_String(String* ptr_dst, String* ptr_src)
 {
-    ptr->arr = realloc(ptr->arr, sizeof (int));
+    if (ptr_dst->size + ptr_src->size > ptr_dst->capacity)
+    {
+        ptr_dst->capacity = ptr_dst->size + ptr_src->size;
+        ptr_dst->arr = realloc(ptr_dst->arr, ptr_dst->capacity * sizeof (char));
+
+        if (ptr_dst->arr == NULL)
+        {
+            printf("\n-------------------------------------");
+            printf("\nString_add_using_String()");
+            printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
+            printf("\n-------------------------------------\n");
+
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    for (int i = ptr_dst->size, j = 0; j < ptr_src->size; ++i, ++j)
+    {
+        (ptr_dst->arr)[i] = (ptr_src->arr)[j];
+    }
+
+    ptr_dst->size += ptr_src->size;
+}
+
+void String_clear(String* ptr)
+{
+    ptr->arr = realloc(ptr->arr, sizeof (char));
 
     if (ptr->arr == NULL)
     {
         printf("\n-------------------------------------");
-        printf("\nArray_List_int_clear()");
+        printf("\nString_clear()");
         printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
         printf("\n-------------------------------------\n");
 
@@ -325,11 +302,85 @@ void Array_List_int_clear(Array_List_int* ptr)
     ptr->capacity = 1;
 }
 
-bool Array_List_int_contains(Array_List_int* ptr, int n)
+void String_assign_using_user_input(String* ptr)
+{
+    String_clear(ptr);
+
+    while (true)
+    {
+        int c = getchar();
+
+        if ((c == '\n') || (c == EOF))
+        {
+            break;
+        }
+
+        if (ptr->size == ptr->capacity)
+        {
+            ptr->capacity = ptr->capacity * 2;
+            ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (char));
+
+            if (ptr->arr == NULL)
+            {
+                printf("\n-------------------------------------");
+                printf("\nString_assign_using_user_input()");
+                printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
+                printf("\n-------------------------------------\n");
+
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        (ptr->arr)[ptr->size] = (char) c;
+        ++(ptr->size);
+    }
+}
+
+bool String_is_empty(String* ptr)
+{
+    return ptr->size == 0;
+}
+
+int String_size(String* ptr)
+{
+    return ptr->size;
+}
+
+char String_char_at(String* ptr, int i)
+{
+    if ((i < 0) || (i >= ptr->size))
+    {
+        printf("\n-------------------------------------------");
+        printf("\nString_char_at()");
+        printf("\nINDEX OUT OF BOUNDS, EXITING DUE TO FAILURE");
+        printf("\n-------------------------------------------\n");
+
+        exit(EXIT_FAILURE);
+    }
+
+    return (ptr->arr)[i];
+}
+
+void String_set_char_at(String* ptr, int i, char c)
+{
+    if ((i < 0) || (i >= ptr->size))
+    {
+        printf("\n-------------------------------------------");
+        printf("\nString_set_char_at()");
+        printf("\nINDEX OUT OF BOUNDS, EXITING DUE TO FAILURE");
+        printf("\n-------------------------------------------\n");
+
+        exit(EXIT_FAILURE);
+    }
+
+    (ptr->arr)[i] = c;
+}
+
+bool String_contains_char(String* ptr, char c)
 {
     for (int i = 0; i < ptr->size; ++i)
 	{
-        if ((ptr->arr)[i] == n)
+        if ((ptr->arr)[i] == c)
 		{
 		    return true;
         }
@@ -338,11 +389,61 @@ bool Array_List_int_contains(Array_List_int* ptr, int n)
     return false;
 }
 
-int Array_List_int_index_of(Array_List_int* ptr, int n)
+bool String_contains_String(String* ptr_dst, String* ptr_src)
+{
+    for (int i = 0; i <= ptr_dst->size - ptr_src->size; ++i)
+    {
+        int j = 0;
+
+        while (j < ptr_src->size)
+        {
+            if ((ptr_dst->arr)[i + j] != (ptr_src->arr)[j])
+            {
+                break;
+            }
+
+            ++j;
+        }
+
+        if (j == ptr_src->size)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int String_index_of_char(String* ptr, char c)
 {
     for (int i = 0; i < ptr->size; ++i)
+	{
+        if ((ptr->arr)[i] == c)
+		{
+		    return i;
+        }
+    }
+
+    return -1;
+}
+
+int String_index_of_String(String* ptr_dst, String* ptr_src)
+{
+    for (int i = 0; i <= ptr_dst->size - ptr_src->size; ++i)
     {
-        if ((ptr->arr)[i] == n)
+        int j = 0;
+
+        while (j < ptr_src->size)
+        {
+            if ((ptr_dst->arr)[i + j] != (ptr_src->arr)[j])
+            {
+                break;
+            }
+
+            ++j;
+        }
+
+        if (j == ptr_src->size)
         {
             return i;
         }
@@ -351,11 +452,36 @@ int Array_List_int_index_of(Array_List_int* ptr, int n)
     return -1;
 }
 
-int Array_List_int_last_index_of(Array_List_int* ptr, int n)
+int String_last_index_of_char(String* ptr, char c)
 {
     for (int i = ptr->size - 1; i >= 0; --i)
+	{
+        if ((ptr->arr)[i] == c)
+		{
+		    return i;
+        }
+    }
+
+    return -1;
+}
+
+int String_last_index_of_String(String* ptr_dst, String* ptr_src)
+{
+    for (int i = ptr_dst->size - ptr_src->size; i >= 0; --i)
     {
-        if ((ptr->arr)[i] == n)
+        int j = 0;
+
+        while (j < ptr_src->size)
+        {
+            if ((ptr_dst->arr)[i + j] != (ptr_src->arr)[j])
+            {
+                break;
+            }
+
+            ++j;
+        }
+
+        if (j == ptr_src->size)
         {
             return i;
         }
@@ -364,93 +490,65 @@ int Array_List_int_last_index_of(Array_List_int* ptr, int n)
     return -1;
 }
 
-void Array_List_int_remove(Array_List_int* ptr, int i)
+int String_next_index_of_char(String* ptr, char c, int start)
 {
-    if ((i < 0) || (i >= ptr->size))
+    if (start < 0)
     {
         printf("\n-------------------------------------------");
-        printf("\nArray_List_int_remove()");
+        printf("\nString_next_index_of_char()");
         printf("\nINDEX OUT OF BOUNDS, EXITING DUE TO FAILURE");
         printf("\n-------------------------------------------\n");
 
         exit(EXIT_FAILURE);
     }
 
-    for (int j = i + 1; j < ptr->size; ++j)
-    {
-        (ptr->arr)[j - 1] = (ptr->arr)[j];
-    }
-
-    --(ptr->size);
-
-    if (ptr->size < ptr->capacity / 2)
-    {
-        ptr->capacity = (ptr->size == 0) ? 1 : ptr->size;
-        ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (int));
-
-        if (ptr->arr == NULL)
-        {
-            printf("\n-------------------------------------");
-            printf("\nArray_List_int_remove()");
-            printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
-            printf("\n-------------------------------------\n");
-
-            exit(EXIT_FAILURE);
+    for (int i = start; i < ptr->size; ++i)
+	{
+        if ((ptr->arr)[i] == c)
+		{
+		    return i;
         }
     }
+
+    return -1;
 }
 
-void Array_List_int_remove_range(Array_List_int* ptr, int i, int j)
+int String_next_index_of_String(String* ptr_dst, String* ptr_src, int start)
 {
-    if ((i > j) || (i < 0) || (j >= ptr->size))
+    if (start < 0)
     {
         printf("\n-------------------------------------------");
-        printf("\nArray_List_int_remove_range()");
+        printf("\nString_next_index_of_String()");
         printf("\nINDEX OUT OF BOUNDS, EXITING DUE TO FAILURE");
         printf("\n-------------------------------------------\n");
 
         exit(EXIT_FAILURE);
     }
 
-    int offset = j - i + 1;
-
-    for (int k = j + 1; k < ptr->size; ++k)
+    for (int i = start; i <= ptr_dst->size - ptr_src->size; ++i)
     {
-        (ptr->arr)[k - offset] = (ptr->arr)[k];
-    }
+        int j = 0;
 
-    ptr->size = ptr->size - offset;
-
-    if (ptr->size < ptr->capacity / 2)
-    {
-        ptr->capacity = (ptr->size == 0) ? 1 : ptr->size;
-        ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (int));
-
-        if (ptr->arr == NULL)
+        while (j < ptr_src->size)
         {
-            printf("\n-------------------------------------");
-            printf("\nArray_List_int_remove_range()");
-            printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
-            printf("\n-------------------------------------\n");
+            if ((ptr_dst->arr)[i + j] != (ptr_src->arr)[j])
+            {
+                break;
+            }
 
-            exit(EXIT_FAILURE);
+            ++j;
+        }
+
+        if (j == ptr_src->size)
+        {
+            return i;
         }
     }
+
+    return -1;
 }
 
-int* Array_List_int_to_array(Array_List_int* ptr)
-{
-    int* array = malloc(ptr->size * sizeof (int));
-
-    for (int i = 0; i < ptr->size; ++i)
-    {
-        array[i] = (ptr->arr)[i];
-    }
-
-    return array;
-}
-
-void destroy_Array_List_int(Array_List_int* ptr)
+void String_destroy(String* ptr)
 {
     free(ptr->arr);
 }
