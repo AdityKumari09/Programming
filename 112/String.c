@@ -557,9 +557,130 @@ int String_next_index_of_String(String* ptr_dst, String* ptr_src, int start)
 // i is inclusive and j is exclusive.
 void String_substring(String* ptr_dst, String* ptr_src, int i, int j)
 {
-    // Similar to String_assign_using_String().
-    // Add bounds-checking.
+   
 }
+
+void String_remove(String* ptr, int i)
+{
+    if ((i < 0) || (i >= ptr->size))
+	{
+    	printf("\n-------------------------------------------");
+    	printf("\nArray_List_int_remove()");
+    	printf("\nINDEX OUT OF BOUNDS, EXITING DUE TO FAILURE");
+    	printf("\n-------------------------------------------\n");
+
+    	exit(EXIT_FAILURE);
+	}
+
+	for (int j = i + 1; j < ptr->size; ++j)
+	{
+    	(ptr->arr)[j - 1] = (ptr->arr)[j];
+	}
+
+	--(ptr->size);
+
+	if (ptr->size < ptr->capacity / 2)
+	{
+    	ptr->capacity = (ptr->size == 0) ? 1 : ptr->size;
+    	ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (char));
+
+    	if (ptr->arr == NULL)
+    	{
+        	printf("\n-------------------------------------");
+        	printf("\nArray_List_int_remove()");
+        	printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
+        	printf("\n-------------------------------------\n");
+
+        	exit(EXIT_FAILURE);
+    	}
+	}
+}
+
+void String_remove_range(String* ptr, int i, int j)
+{
+    if ((i >= j) || (i < 0) || (j > ptr->size))
+	{
+    	printf("\n-------------------------------------------");
+    	printf("\nArray_List_int_remove_range()");
+    	printf("\nINDEX OUT OF BOUNDS, EXITING DUE TO FAILURE");
+    	printf("\n-------------------------------------------\n");
+
+    	exit(EXIT_FAILURE);
+	}
+
+	int offset = j - i;
+
+	for (int k = j; k < ptr->size; ++k)
+	{
+    	(ptr->arr)[k - offset] = (ptr->arr)[k];
+	}
+
+	ptr->size -= offset;
+
+	if (ptr->size < ptr->capacity / 2)
+	{
+    	ptr->capacity = (ptr->size == 0) ? 1 : ptr->size;
+    	ptr->arr = realloc(ptr->arr, ptr->capacity * sizeof (char));
+
+    	if (ptr->arr == NULL)
+    	{
+        	printf("\n-------------------------------------");
+        	printf("\nArray_List_int_remove_range()");
+        	printf("\nOUT OF MEMORY, EXITING DUE TO FAILURE");
+        	printf("\n-------------------------------------\n");
+
+        	exit(EXIT_FAILURE);
+    	}
+	}
+}
+
+int String_compare_to(String* ptr_dst, String* ptr_src)// s1 = source, s2 = dst
+{
+    int i = 0;
+
+    while ((i < ptr_dst->size) && (i < ptr_src->size) && (ptr_dst[i] == 
+                                                                ptr_src->[i]))
+    {
+        ++i;
+    }  
+
+    if (ptr_src->arr[i] > ptr_dst->arr[i])
+    {
+        return 1;
+    }
+
+    else if (ptr_src->arr[i] == ptr_dst->arr[i])
+    {
+        return 0;
+    }
+
+    else
+    {
+        return -1;
+    }                                                          
+                                                                
+}
+
+int String_compare_to_ignore_case(String* dst, String* src)
+{
+    
+}
+
+char* String_to_null_terminated_array_of_char(String* ptr)
+{
+    char* array = malloc(ptr->size * sizeof (char));
+
+	for (int i = 0; i < ptr->size; ++i)
+	{
+    	array[i] = (ptr->arr)[i];
+	}
+
+    array[i] = '\0';
+
+	return array;
+}
+
+
 
 void String_destroy(String* ptr)
 {

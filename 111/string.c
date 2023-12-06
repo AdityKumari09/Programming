@@ -136,8 +136,10 @@ void my_gets(char* str)
         int c = getchar();
 
         if ((c == '\n') || (c == EOF))
+        {
             break;
-
+        }
+        
         str[i] = (char) c;
         ++i;
     }
@@ -174,7 +176,7 @@ void my_strcpy(char* dst, char* src)
     dst[i] = '\0';
 }
 
-void my_strcat(char* dst, char* src)
+void my_strcat(char* dst, char* src)//piche se add
 {
     int i = 0;
 
@@ -195,7 +197,7 @@ void my_strcat(char* dst, char* src)
     dst[i] = '\0';
 }
 
-int my_strcmp(char* s1, char* s2)
+int my_strcmp(char* s1, char* s2)//compare
 {
     int i = 0;
 
