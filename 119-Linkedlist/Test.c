@@ -39,6 +39,8 @@ void Linked_List_int_clear(Linked_List_int* ptr);
 bool Linked_List_int_contains(Linked_List_int*, int);
 int Linked_List_int_index_of(Linked_List_int*, int);
 int Linked_List_int_last_index_of(Linked_List_int*, int);
+void Linked_List_int_remove(Linked_List_int*, int);
+int* Linked_List_int_to_array(Linked_List_int*);
 
 int main(void)
 {
@@ -123,20 +125,20 @@ int main(void)
 
 	printf("---------------------------------------------------------------\n");
 
-	// Linked_List_int_remove(&a1, 3);
+	Linked_List_int_remove(&a1, 3);
 
-	// int* array = Linked_List_int_to_array(&a1);
+	int* array = Linked_List_int_to_array(&a1);
 
-	// for (int i = 0; i < Linked_List_int_size(&a1); ++i)
-	// {
-    // 	printf("%d ", array[i]);
-	// }
+	for (int i = 0; i < Linked_List_int_size(&a1); ++i)
+	{
+    	printf("%d ", array[i]);
+	}
 
-	// putchar('\n');
+	putchar('\n');
 
-	// free(array);
+	free(array);
 
-	// printf("---------------------------------------------------------------\n");
+	printf("---------------------------------------------------------------\n");
 
 	destroy_Linked_List_int(&a1);
 
@@ -445,6 +447,91 @@ int Linked_List_int_last_index_of(Linked_List_int* ptr, int n)
 	}
 
 	return -1;
+}
+
+void Linked_List_int_remove(Linked_List_int* ptr, int i)
+{
+	if ((i < 0) || (i >= ptr->size))
+	{
+    	printf("\n-------------------------------------------");
+    	printf("\nLinked_List_int_add_at_index()");
+    	printf("\nINDEX OUT OF BOUNDS, EXITING DUE TO FAILURE");
+    	printf("\n-------------------------------------------\n");
+
+    	exit(EXIT_FAILURE);
+	}
+
+	if (ptr->size == 1)
+	{
+		free(ptr->ptr_head_node);
+		ptr->ptr_head_node = NULL;
+		ptr->ptr_tail_node = NULL;
+	}
+
+	else
+	{
+		if (i == 0)
+		{
+			ptr->ptr_head_node = ptr->ptr_head_node->ptr_next_node;
+			free(ptr->ptr_head_node->ptr_previous_node);
+			ptr->ptr_head_node->ptr_previous_node = NULL;
+		}
+
+		else if (i == ptr->size - 1)
+		{
+			ptr->ptr_tail_node = ptr->ptr_tail_node->ptr_previous_node;
+			free(ptr->ptr_tail_node->ptr_next_node);
+			ptr->ptr_tail_node->ptr_next_node = NULL;
+		}
+
+		else
+		{
+			Node* ptr_current_node;
+			
+			if (i <= ptr->size / 2)
+			{
+				ptr_current_node = ptr->ptr_head_node;
+
+	        	for (int j = 0; j < i - 1; ++j)
+	        	{
+	        		ptr_current_node = ptr_current_node->ptr_next_node;
+	        	}
+			}
+
+			else
+			{
+				ptr_current_node = ptr->ptr_tail_node;
+
+	        	for (int j = 0; j < ptr->size - i; ++j)
+	        	{
+	        		ptr_current_node = ptr_current_node->ptr_previous_node;
+	        	}
+			}	
+
+			ptr_current_node->ptr_next_node = ptr_current_node->ptr_next_node->ptr_next_node;
+			free(ptr_current_node->ptr_next_node->ptr_previous_node);
+			ptr_current_node->ptr_next_node->ptr_previous_node = ptr_current_node;
+
+		}
+	}
+
+	--(ptr->size);
+
+}
+
+int* Linked_List_int_to_array(Linked_List_int* ptr)
+{
+	int* array = malloc(ptr->size * sizeof (int));
+
+	Node* ptr_current_node = ptr->ptr_head_node;
+
+	for (int i = 0; i < ptr->size; ++i)
+	{
+    	array[i] = ptr_current_node->value;
+		ptr_current_node = ptr_current_node->ptr_next_node;
+	}
+
+	return array;
 }
 
 void destroy_Linked_List_int(Linked_List_int* ptr)
