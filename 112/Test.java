@@ -331,12 +331,12 @@ class My_String
         return -1;
     }
 
-    void substring(My_String ref_src, int i, int j)
+    void assign_using_substring(My_String ref_src, int i, int j)
     {
         if ((i >= j) || (i < 0) || (j > ref_src.size()))
 	    {
-        	throw new IndexOutOfBoundsException();
-	    }
+            throw new IndexOutOfBoundsException();
+    	}
 
         size = j - i;
 
@@ -346,193 +346,199 @@ class My_String
 
         for (int k = 0; k < size; ++k)
         {
-            arr[k] = ref_src.char_at(i);
+            arr[k] = ref_src.char_at(i + k);
         }
+    }
 
-        for (int k = 0; k < size; ++k)
+    void remove(int i)
+    {
+        if ((i < 0) || (i >= size))
+	    {
+            throw new IndexOutOfBoundsException();
+	    }
+
+    	for (int j = i + 1; j < size; ++j)
+	    {
+    	    arr[j - 1] = arr[j];
+    	}
+
+    	--size;
+
+    	if (size < capacity / 2)
+	    {
+            capacity = (size == 0) ? 1 : size;
+
+            char[] new_arr = new char[capacity];
+
+            for (int j = 0; j < size; ++j)
+            {
+                new_arr[j] = arr[j];
+            }
+
+            arr = new_arr;
+    	}
+    }
+
+    void remove(int i, int j)
+    {
+        if ((i >= j) || (i < 0) || (j > size))
+	    {
+            throw new IndexOutOfBoundsException();
+	    }
+
+    	int offset = j - i;
+
+    	for (int k = j; k < size; ++k)
+	    {
+    	    arr[k - offset] = arr[k];
+	    }
+
+    	size -= offset;
+
+	    if (size < capacity / 2)
+	    {
+            capacity = (size == 0) ? 1 : size;
+
+            char[] new_arr = new char[capacity];
+
+            for (int k = 0; k < size; ++k)
+            {
+                new_arr[k] = arr[k];
+            }
+
+            arr = new_arr;
+    	}
+    }
+
+    int compare_to(My_String ref_src)
+    {
+        int i = 0;
+
+        while ((i < ref_src.size()) && (i < size))
         {
-            (arr)[k] = (ref_src.char_at(i + k));
+            if (ref_src.char_at(i) != arr[i])
+            {
+                break;
+           }
+
+           ++i;
         }
-}
 
-void remove(int i)
-{
-    if ((i < 0) || (i >= size))
-	{
-    	throw new IndexOutOfBoundsException();
-	}
-
-	for (int j = i + 1; j < size; ++j)
-	{
-    	arr[j - 1] = arr[j];
-	}
-
-	--(size);
-
-	if (size < capacity / 2)
-	{    	
-        capacity = (size == 0) ? 1 : size;
-
-        char[] new_arr = new char[capacity];
-
-        for (i = 0; i < size; ++i)
+        if ((i == ref_src.size()) && (i == size))
         {
-            new_arr[i] = arr[i];
-        }
-	}
-}
-
-void remove(int i, int j)
-{
-    if ((i >= j) || (i < 0) || (j > size))
-	{
-    	throw new IndexOutOfBoundsException();
-	}
-
-	int offset = j - i;
-
-	for (int k = j; k < size; ++k)
-	{
-    	arr[k - offset] = arr[k];
-	}
-
-	size -= offset;
-
-	if (size < capacity / 2)
-    {
-        capacity = (size == 0) ? 1 : size;
-
-        char[] new_arr = new char[capacity];
-
-        for (i = 0; i < size; ++i)
-        {
-            new_arr[i] = arr[i];
-        }
-    }
-	
-}
-
-int compare_to(My_String ref_src)
-{
-    int i = 0;
-
-    while ((i < ref_src.size()) && (i < size))
-    {
-        if ((ref_src.char_at(i)) != arr[i])
-        {
-            break;
+            return 0;
         }
 
-        ++i;
-    }
-
-    if ((i == ref_src.size()) && (i == size))
-    {
-        return 0;
-    }
-
-    else if (i == ref_src.size())
-    {
-        return -1;
-    }
-
-    else if (i == size)
-    {
-        return 1;
-    }
-
-    else
-    {
-        if ((ref_src.char_at(i)) < (arr)[i])
+        else if (i == ref_src.size())
         {
             return -1;
         }
 
-        else
+        else if (i == size)
         {
             return 1;
         }
-    }
-}
 
-int compare_to_ignore_case(My_String ref_src)
-{
-    int i = 0;
-    char c1 = 0;
-    char c2 = 0;
-
-    while ((i < ref_src.size()) && (i < size))
-    {
-        c1 = (ref_src.char_at(i));
-
-        if ((c1 >= 'a') && (c1 <= 'z'))
+        else
         {
-            c1 = (char) ('A' + (c1 - 'a'));
+            if (ref_src.char_at(i) < arr[i])
+            {
+                return -1;
+            }
+
+            // This condition will never be true.
+            // else if (ref_src.char_at(i) == arr[i])
+            // {
+            //     return 0;
+            // }
+
+            else
+            {
+                return 1;
+            }
+        }
+    }
+
+    int compare_to_ignore_case(My_String ref_src)
+    {
+        int i = 0;
+        char c1 = 0, c2 = 0;
+
+        while ((i < ref_src.size()) && (i < size))
+        {
+            c1 = ref_src.char_at(i);
+
+            if ((c1 >= 'a') && (c1 <= 'z'))
+            {
+                c1 = (char) ('A' + (c1 - 'a'));
+            }
+
+            c2 = arr[i];
+
+            if ((c2 >= 'a') && (c2 <= 'z'))
+            {
+                c2 = (char) ('A' + (c2 - 'a'));
+            }
+
+            if (c1 != c2)
+            {
+                break;
+            }
+
+            ++i;
         }
 
-        c2 = (arr)[i];
-
-        if ((c2 >= 'a') && (c2 <= 'z'))
+        if ((i == ref_src.size()) && (i == size))
         {
-            c2 = (char) ('A' + (c2 - 'a'));
+            return 0;
         }
 
-        if (c1 != c2)
-        {
-            break;
-        }
-
-        ++i;
-    }
-
-    if ((i == ref_src.size()) && (i == size))
-    {
-        return 0;
-    }
-
-    else if (i == ref_src.size())
-    {
-        return -1;
-    }
-
-    else if (i == size)
-    {
-        return 1;
-    }
-
-    else
-    {
-        if (c1 < c2)
+        else if (i == ref_src.size())
         {
             return -1;
         }
 
-        // This condition will never be true.
-        // else if (c1 == c2)
-        // {
-        //     return 0;
-        // }
-
-        else
+        else if (i == size)
         {
             return 1;
         }
+
+        else
+        {
+            if (c1 < c2)
+            {
+                return -1;
+            }
+
+            // This condition will never be true.
+            // else if (c1 == c2)
+            // {
+            //     return 0;
+            // }
+
+            else
+            {
+                return 1;
+            }
+        }
     }
-}
 
-char[] to_array()
-{
-    // Not null-terminated.
-    char[] new_arr = new char[size + 1];
+    char[] to_array()
+    {
+        char[] new_arr = new char[size];
 
-    for (int i = 0; i < size; ++i)
-	{
-    	new_arr[i] = arr[i];
-	}
+        for (int i = 0; i < size; ++i)
+        {
+            new_arr[i] = arr[i];
+        }
 
-	return new_arr;
-}
+        return new_arr;
+    }
 
+    String to_String()
+    {
+        return new String(arr, 0, size);
+    }
 }
 
 class Test
@@ -617,40 +623,64 @@ class Test
         System.out.println("-------------------------------------------------");
 
         s1.assign("hello");
-        s2.substring(s1, 1, 4);
-    
+        s2.assign_using_substring(s1, 1, 4);
+
         s1.print();
         System.out.println();
-    
+
         s2.print();
         System.out.println();
-    
-        System.out.println("---------------------------------------------------------------\n");
-    
+
+        System.out.println("-------------------------------------------------");
+
         s1.assign("hello world");
         s1.remove(4);
-    
+
         s1.print();
         System.out.println();
-    
-        System.out.println("---------------------------------------------------------------\n");
-    
+
+        System.out.println("-------------------------------------------------");
+
         s1.assign("hello world");
         s1.remove(4, 8);
-    
+
         s1.print();
         System.out.println();
-        System.out.println("---------------------------------------------------------------\n");
-    
-        System.out.println("Enter the source string: ");
+
+        System.out.println("-------------------------------------------------");
+
+        System.out.print("Enter the source string: ");
         s1.assign(sc.nextLine());
-    
-        System.out.println("Enter the destination string: ");
+
+        System.out.print("Enter the destination string: ");
         s2.assign(sc.nextLine());
-    
+
         System.out.println(s2.compare_to(s1));
         System.out.println(s2.compare_to_ignore_case(s1));
-    
-        System.out.println("---------------------------------------------------------------\n");
+
+        System.out.println("-------------------------------------------------");
     }
 }
+
+// class Test
+// {
+//     public static void main(String[] args)
+//     {
+//         My_String[] arr = new My_String[3];
+
+//         for (int i = 0; i < 3; ++i)
+//         {
+//             arr[i] = new My_String();
+//         }
+
+//         arr[0].assign("hello");
+//         arr[1].assign("world");
+//         arr[2].assign("hi");
+
+//         for (int i = 0; i < 3; ++i)
+//         {
+//             arr[i].print();
+//             System.out.println();
+//         }
+//     }
+// }
