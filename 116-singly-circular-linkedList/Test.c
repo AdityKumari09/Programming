@@ -4,8 +4,10 @@
 
 struct node
 {
-    int value;
-    struct node* ptr_next_node;
+	int value;
+
+	// Node* ptr_next_node;
+	struct node* ptr_next_node;
 };
 
 typedef struct node Node;
@@ -21,7 +23,7 @@ int main(void)
     Node* ptr_head_node = malloc(sizeof (Node));
     scanf("%d", &(ptr_head_node->value));
 
-    ptr_head_node->ptr_next_node = NULL;
+    ptr_head_node->ptr_next_node = ptr_head_node;
 
     Node* ptr_previous_node = ptr_head_node;
 
@@ -31,12 +33,10 @@ int main(void)
         scanf("%d", &(ptr_current_node->value));
 
         ptr_previous_node->ptr_next_node = ptr_current_node;
-        ptr_current_node->ptr_next_node = NULL;
+        ptr_current_node->ptr_next_node = ptr_head_node;
 
         ptr_previous_node = ptr_current_node;
     }
-
-    ptr_previous_node->ptr_next_node = ptr_head_node;
 
     Node* ptr_current_node = ptr_head_node;
 
