@@ -23,6 +23,7 @@ class Test
         ref_head_node.value = sc.nextInt();
 
         ref_head_node.ref_next_node = null;
+        ref_head_node.ref_previous_node = null;
 
         Node ref_previous_node = ref_head_node;
 
@@ -33,6 +34,7 @@ class Test
 
             ref_previous_node.ref_next_node = ref_current_node;
             ref_current_node.ref_next_node = null;
+            ref_current_node.ref_previous_node = ref_previous_node;
 
             ref_previous_node = ref_current_node;
         }
@@ -46,5 +48,16 @@ class Test
         }
 
         System.out.println();
+
+        ref_current_node = ref_previous_node;
+
+        while (ref_current_node != null)
+	    {
+	    	System.out.print(ref_current_node.value + " ");
+	    	ref_current_node = ref_current_node.ref_previous_node;
+        }
+
+        System.out.println();
+
     }
 }

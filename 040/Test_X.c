@@ -68,7 +68,7 @@ Note: Don't reverse the integer.
       div = div / 10;
     }
 
-    printf("%d = %d\n", n, sum);
+    printf("%d = %d\n", n, sum + n);
 
     return 0;
  }

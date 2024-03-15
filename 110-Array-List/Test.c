@@ -243,7 +243,6 @@ int Array_List_int_get(Array_List_int* ptr, int i)
     	printf("\nArray_List_int_get()");
     	printf("\nINDEX OUT OF BOUNDS, EXITING DUE TO FAILURE");
     	printf("\n-------------------------------------------\n");
-
     	exit(EXIT_FAILURE);
 	}
 
@@ -323,6 +322,11 @@ void Array_List_int_clear(Array_List_int* ptr)
 
 	ptr->size = 0;
 	ptr->capacity = 1;
+
+	// destroy_Array_List_int(ptr);
+
+	// create_empty_Array_List_int(ptr);
+
 }
 
 bool Array_List_int_contains(Array_List_int* ptr, int n)
@@ -330,8 +334,8 @@ bool Array_List_int_contains(Array_List_int* ptr, int n)
 	for (int i = 0; i < ptr->size; ++i)
     {
     	if ((ptr->arr)[i] == n)
-   	 {
-   	 	return true;
+   	 	{
+   	 		return true;
     	}
 	}
 

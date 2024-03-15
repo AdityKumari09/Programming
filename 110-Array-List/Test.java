@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 class Array_List_int
 {
     private int[] arr;
@@ -84,7 +82,7 @@ class Array_List_int
         arr[i] = n;
     }
 
-    void add(int i, int n)
+    void add(int i, int n)// method overloading - java khud se samjh jata h
     {
         if ((i < 0) || (i > size))
         {

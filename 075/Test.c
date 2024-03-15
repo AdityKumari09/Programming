@@ -23,6 +23,8 @@ int main(void)
 
         ++i;
     }
+
+    printf("\n");
         
     return 0;
 }
@@ -36,14 +38,15 @@ int is_prime(int i)
 
     else
     {    
-        int j = 1;
-        int count = 0;
+        int j = 2;
+        int count = 2;
 
-        while (j <= n)
+        while (j * j <= i)
         {
-            if (n % j == 0)
+            if (i % j == 0)
             {
                 ++count;
+                break;
             }
 
             ++j;
